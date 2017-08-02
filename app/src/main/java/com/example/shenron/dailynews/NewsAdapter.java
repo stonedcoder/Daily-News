@@ -43,41 +43,45 @@ public class NewsAdapter extends ArrayAdapter<News>{
         TextView categoryView = (TextView)listItemView.findViewById(R.id.categories_text_view);
         categoryView.setText(currentNews.getCategory());
 
-        Date dateobject = new Date(currentNews.getDate());
+
+        Date dateObject = new Date(currentNews.getDate());
         TextView dateView = (TextView)listItemView.findViewById(R.id.date_text_view);
-        dateView.setText(formatDate(currentNews.getDate()));
+
+        String formattedDate = formatDate(dateObject);
+        dateView.setText(formattedDate);
 
         TextView timeView = (TextView)listItemView.findViewById(R.id.time_text_view);
-        timeView.setText(formatTime(currentNews.getDate()));
+        String formattedTime = formatTime(dateObject);
+        timeView.setText(formattedTime);
 
         // Return the list item view that is now showing the appropriate data
         return listItemView;
 
     }
 
-    private String formatDate(String dateString) {
+    private String formatDate(Date dateString) {
         String someDateString = "2016-09-26T15:57:34Z";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss'Z'");
         Date dateObject = null;
         try {
-            dateObject = simpleDateFormat.parse(dateString);
+            dateObject = simpleDateFormat.parse(String.valueOf(dateString));
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        simpleDateFormat = new SimpleDateFormat("MMM dd,yyyy");
+        simpleDateFormat = new SimpleDateFormat("LLL dd,yyyy");
         String date = simpleDateFormat.format(dateObject);
 
         return date;
     }
 
-    private String formatTime(String timeString)
+    private String formatTime(Date timeString)
     {
         String someTimeString = "2016-09-26T15:57:34Z";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss'Z'");
         Time timeObject = null;
         try{
-            timeObject = (Time) simpleDateFormat.parse(timeString);
+            timeObject = (Time) simpleDateFormat.parse(String.valueOf(timeString));
         }catch (ParseException e){
             e.printStackTrace();
         }
