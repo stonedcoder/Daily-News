@@ -5,9 +5,6 @@ public class News {
     //Title of News
     private String mTitle;
 
-    //Summary of news
-    private String mSummary;
-
     //Author of news
     private String mAuthor;
 
@@ -17,31 +14,21 @@ public class News {
     //Date of news
     private String mDate;
 
-    //Time of news
-    private String mTime;
-
     //URL of news
     private String mUrl;
 
     //public constructor
-    public News(String title,String summary,String author,String category,String date,String time,String url)
+    public News(String title,String category,String date,String url)
     {
         mTitle=title;
-        mSummary=summary;
-        mAuthor=author;
         mCategory=category;
         mDate=date;
-        mTime=time;
         mUrl=url;
     }
 
     public String getTitle()
     {
         return mTitle;
-    }
-    public String getSummary()
-    {
-        return mSummary;
     }
     public String getAuthor()
     {
@@ -54,10 +41,6 @@ public class News {
     public String getDate()
     {
         return mDate;
-    }
-    public String getTime()
-    {
-        return mTime;
     }
     public String getUrl()
     {

@@ -4,6 +4,10 @@ package com.example.shenron.dailynews;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -135,7 +139,36 @@ public class QueryUtils {
         // Try to parse the SAMPLE_JSON_RESPONSE. If there's a problem with the way the JSON
         // is formatted, a JSONException exception object will be thrown.
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
+        try {
 
+            // build up a list of News objects with the corresponding data.
+
+            JSONObject baseJsonResponse = new JSONObject(JSON_RESPONSE);
+            JSONObject responseObject = baseJsonResponse.getJSONObject("response");
+            JSONArray newsArray = responseObject.getJSONArray("results");
+
+            for(int i=0;i<newsArray.length();i++)
+            {
+                JSONObject currentNews = newsArray.getJSONObject(i);
+                String webTitle = currentNews.getString("webTitle");
+                String url = currentNews.getString("webUrl");
+                String date = currentNews.getString("webPublicationDate");
+                String sectionName = currentNews.getString("sectionName");
+
+                News mNews = new News(webTitle,sectionName,date,url);
+                news.add(mNews);
+            }
+
+
+        }catch (JSONException e) {
+            // If an error is thrown when executing any of the above statements in the "try" block,
+            // catch the exception here, so the app doesn't crash. Print a log message
+            // with the message from the exception.
+            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+        }
+
+
+        return news;
     }
 
 }

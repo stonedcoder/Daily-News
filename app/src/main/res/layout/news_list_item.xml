@@ -28,13 +28,7 @@
             android:textSize="20sp"
             tools:text="Heading of the news feed item" />
 
-        <TextView
-            android:id="@+id/summary_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxLines="3"
-            android:textSize="16sp"
-            tools:text="Small description of the news feed" />
+
 
         <TextView
             android:layout_width="wrap_content"
