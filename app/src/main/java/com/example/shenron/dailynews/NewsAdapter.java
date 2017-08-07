@@ -3,6 +3,7 @@ package com.example.shenron.dailynews;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.SimpleTimeZone;
+import java.util.Locale;
 
 public class NewsAdapter extends ArrayAdapter<News>{
 
@@ -59,20 +60,20 @@ public class NewsAdapter extends ArrayAdapter<News>{
 
     }
 
-    private String formatDate(Date dateString) {
+    private static String formatDate(Date dateString) {
         String someDateString = "2016-09-26T15:57:34Z";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'kk:mm:ss'Z'");
-        Date dateObject = null;
+        SimpleDateFormat jsonFormatter = new SimpleDateFormat(someDateString, Locale.US);
+
         try {
-            dateObject = simpleDateFormat.parse(String.valueOf(dateString));
+            Date dateObject = jsonFormatter.parse(String.valueOf(dateString));
+            String finalDatePattern = "MMM d, yyy";
+            SimpleDateFormat finalDateFormatter = new SimpleDateFormat(finalDatePattern, Locale.US);
+            return finalDateFormatter.format(dateObject);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.e("News Adapter", "Error parsing JSON date: ", e);
         }
 
-        simpleDateFormat = new SimpleDateFormat("LLL dd,yyyy");
-        String date = simpleDateFormat.format(dateObject);
-
-        return date;
+     return "" ;
     }
 
     private String formatTime(Date timeString)
